@@ -1,4 +1,4 @@
-package kg.erkin.springbackend.model.dto;
+package kg.erkin.springbackend.model.dto.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
