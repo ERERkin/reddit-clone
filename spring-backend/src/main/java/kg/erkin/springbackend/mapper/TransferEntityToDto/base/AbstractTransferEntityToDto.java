@@ -1,0 +1,15 @@
+package kg.erkin.springbackend.mapper.TransferEntityToDto.base;
+
+import kg.erkin.springbackend.model.dto.base.BaseDto;
+import kg.erkin.springbackend.model.entity.base.BaseEntity;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public abstract class AbstractTransferEntityToDto<E extends BaseEntity, D extends BaseDto>{
+    public abstract D transferToDto(E entity);
+
+    public List<D> transferToDtoList(List<E> entityList) {
+        return entityList.stream().map(this::transferToDto).collect(Collectors.toList());
+    }
+}
