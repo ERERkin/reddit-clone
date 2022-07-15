@@ -1,23 +1,24 @@
 package kg.erkin.springbackend.service.impl;
 
+import kg.erkin.springbackend.mapper.TransferDtoToEntity.RefreshTokenDtoToRefreshTokenTransfer;
+import kg.erkin.springbackend.mapper.TransferEntityToDto.RefreshTokenToRefreshTokenDtoTransfer;
+import kg.erkin.springbackend.model.dto.RefreshTokenDto;
 import kg.erkin.springbackend.model.entity.RefreshToken;
 import kg.erkin.springbackend.repostitory.RefreshTokenRepository;
 import kg.erkin.springbackend.service.RefreshTokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import kg.erkin.springbackend.service.base.AbstractService;
+import kg.erkin.springbackend.service.base.BaseService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Service
-@Transactional
-public class RefreshTokenServiceImpl implements RefreshTokenService {
-    @Autowired
-    private final RefreshTokenRepository refreshTokenRepository;
-
-    public RefreshTokenServiceImpl(RefreshTokenRepository refreshTokenRepository) {
-        this.refreshTokenRepository = refreshTokenRepository;
+public class RefreshTokenServiceImpl extends AbstractService<RefreshToken, RefreshTokenDto, RefreshTokenRepository,
+        RefreshTokenToRefreshTokenDtoTransfer, RefreshTokenDtoToRefreshTokenTransfer>
+        implements RefreshTokenService {
+    public RefreshTokenServiceImpl(RefreshTokenRepository repository, RefreshTokenToRefreshTokenDtoTransfer transferEntityToDto, RefreshTokenDtoToRefreshTokenTransfer transferDtoToEntity) {
+        super(repository, transferEntityToDto, transferDtoToEntity);
     }
 
     @Override
@@ -26,17 +27,17 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setCreatedDate(Instant.now());
 
-        return refreshTokenRepository.save(refreshToken);
+        return repository.save(refreshToken);
     }
 
     @Override
     public void validateRefreshToken(String token) {
-        refreshTokenRepository.findByToken(token)
+        repository.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid refresh Token"));
     }
 
     @Override
     public void deleteRefreshToken(String token) {
-        refreshTokenRepository.deleteByToken(token);
+        repository.deleteByToken(token);
     }
 }
