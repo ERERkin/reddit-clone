@@ -1,11 +1,13 @@
 package kg.erkin.springbackend.controller;
 
-import kg.erkin.springbackend.model.dto.AuthenticationResponse;
-import kg.erkin.springbackend.model.dto.LoginRequest;
-import kg.erkin.springbackend.model.dto.RefreshTokenRequest;
-import kg.erkin.springbackend.model.dto.RegisterRequest;
+import kg.erkin.springbackend.model.dto.api.AuthenticationResponse;
+import kg.erkin.springbackend.model.dto.api.LoginRequest;
+import kg.erkin.springbackend.model.dto.api.RefreshTokenRequest;
+import kg.erkin.springbackend.model.dto.api.RegisterRequest;
 import kg.erkin.springbackend.service.AuthService;
 import kg.erkin.springbackend.service.RefreshTokenService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +17,12 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/auth")
+@Slf4j
 public class AuthController {
-    private final AuthService authService;
-    private final RefreshTokenService refreshTokenService;
-
-    public AuthController(AuthService authService, RefreshTokenService refreshTokenService) {
-        this.authService = authService;
-        this.refreshTokenService = refreshTokenService;
-    }
+    @Autowired
+    private AuthService authService;
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
