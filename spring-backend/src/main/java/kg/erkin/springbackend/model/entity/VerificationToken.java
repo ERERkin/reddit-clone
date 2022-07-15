@@ -1,12 +1,12 @@
 package kg.erkin.springbackend.model.entity;
 
+import kg.erkin.springbackend.model.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.time.Instant;
 
 import static javax.persistence.FetchType.LAZY;
@@ -18,7 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VerificationToken {
+public class VerificationToken implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;

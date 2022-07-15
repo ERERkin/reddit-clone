@@ -1,6 +1,8 @@
 package kg.erkin.springbackend.model.entity;
 
+import kg.erkin.springbackend.model.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-
 import java.time.Instant;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,7 +19,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Builder
+public class User implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long userId;

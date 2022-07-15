@@ -1,5 +1,6 @@
 package kg.erkin.springbackend.model.entity;
 
+import kg.erkin.springbackend.model.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +9,6 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
 import java.time.Instant;
 
 import static javax.persistence.FetchType.LAZY;
@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Post {
+public class Post implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long postId;

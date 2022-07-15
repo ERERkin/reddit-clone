@@ -1,5 +1,6 @@
 package kg.erkin.springbackend.model.entity;
 
+import kg.erkin.springbackend.model.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RefreshToken {
+public class RefreshToken implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
