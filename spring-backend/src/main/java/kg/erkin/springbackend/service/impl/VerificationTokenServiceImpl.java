@@ -4,23 +4,23 @@ import kg.erkin.springbackend.mapper.transferDtoToEntity.VerificationTokenDtoToV
 import kg.erkin.springbackend.mapper.transferEntityToDto.VerificationTokenToVerificationTokenDtoTransfer;
 import kg.erkin.springbackend.model.dto.VerificationTokenDto;
 import kg.erkin.springbackend.model.entity.VerificationToken;
-import kg.erkin.springbackend.repostitory.VerificationTokenRepository;
+import kg.erkin.springbackend.service.VerificationTokenEntityService;
 import kg.erkin.springbackend.service.VerificationTokenService;
 import kg.erkin.springbackend.service.base.AbstractService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VerificationTokenServiceImpl extends AbstractService<VerificationToken, VerificationTokenDto, VerificationTokenRepository,
+public class VerificationTokenServiceImpl extends AbstractService<VerificationTokenEntityService, VerificationToken, VerificationTokenDto,
         VerificationTokenToVerificationTokenDtoTransfer, VerificationTokenDtoToVerificationTokenTransfer>
         implements VerificationTokenService {
-    public VerificationTokenServiceImpl(VerificationTokenRepository repository, VerificationTokenToVerificationTokenDtoTransfer transferEntityToDto, VerificationTokenDtoToVerificationTokenTransfer transferDtoToEntity) {
-        super(repository, transferEntityToDto, transferDtoToEntity);
+
+    public VerificationTokenServiceImpl(VerificationTokenEntityService entityService, VerificationTokenToVerificationTokenDtoTransfer transferToDto, VerificationTokenDtoToVerificationTokenTransfer transferToEntity) {
+        super(entityService, transferToDto, transferToEntity);
     }
 
     @Override
     public VerificationTokenDto findByToken(String token) {
-        VerificationToken verificationToken = repository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid Token"));
+        VerificationToken verificationToken = entityService.findByToken(token);
         return transferEntityToDto.transferToDto(verificationToken);
     }
 }
