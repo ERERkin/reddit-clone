@@ -59,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
         System.out.println(registerRequest.getPassword());
         System.out.println(user.getPassword());
 
-        userService.save(user);
+        user = userService.save(user);
 
         String token = generateVerificationToken(user);
 
@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
     public UserDto getCurrentUser() {
         Jwt principal = (Jwt) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
-        return userService.findByUsername(principal.getSubject());
+        return userService.getByUsername(principal.getSubject());
     }
 
     @Override
@@ -93,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
 
     private void fetchUserAndEnable(VerificationTokenDto verificationToken) {
         String username = verificationToken.getUser().getUsername();
-        UserDto user = userService.findByUsername(username);
+        UserDto user = userService.getByUsername(username);
         user.setEnabled(true);
         userService.save(user);
     }

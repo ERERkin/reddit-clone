@@ -1,13 +1,12 @@
 package kg.erkin.springbackend.service.impl;
 
-import kg.erkin.springbackend.mapper.TransferDtoToEntity.SubredditDtoToSubredditTransfer;
-import kg.erkin.springbackend.mapper.TransferEntityToDto.SubredditToSubredditDtoTransfer;
+import kg.erkin.springbackend.mapper.transferDtoToEntity.SubredditDtoToSubredditTransfer;
+import kg.erkin.springbackend.mapper.transferEntityToDto.SubredditToSubredditDtoTransfer;
 import kg.erkin.springbackend.model.dto.SubredditDto;
 import kg.erkin.springbackend.model.entity.Subreddit;
 import kg.erkin.springbackend.repostitory.SubredditRepository;
 import kg.erkin.springbackend.service.SubredditService;
 import kg.erkin.springbackend.service.base.AbstractService;
-import kg.erkin.springbackend.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service

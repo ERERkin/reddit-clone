@@ -1,13 +1,12 @@
 package kg.erkin.springbackend.service.impl;
 
-import kg.erkin.springbackend.mapper.TransferDtoToEntity.VerificationTokenDtoToVerificationTokenTransfer;
-import kg.erkin.springbackend.mapper.TransferEntityToDto.VerificationTokenToVerificationTokenDtoTransfer;
+import kg.erkin.springbackend.mapper.transferDtoToEntity.VerificationTokenDtoToVerificationTokenTransfer;
+import kg.erkin.springbackend.mapper.transferEntityToDto.VerificationTokenToVerificationTokenDtoTransfer;
 import kg.erkin.springbackend.model.dto.VerificationTokenDto;
 import kg.erkin.springbackend.model.entity.VerificationToken;
 import kg.erkin.springbackend.repostitory.VerificationTokenRepository;
 import kg.erkin.springbackend.service.VerificationTokenService;
 import kg.erkin.springbackend.service.base.AbstractService;
-import kg.erkin.springbackend.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -5,7 +5,8 @@ import kg.erkin.springbackend.model.entity.RefreshToken;
 import kg.erkin.springbackend.service.base.BaseService;
 
 public interface RefreshTokenService extends BaseService<RefreshTokenDto> {
-    RefreshToken generateRefreshToken();
+    RefreshTokenDto generateRefreshToken();
+
     void validateRefreshToken(String token);
     void deleteRefreshToken(String token);
 }

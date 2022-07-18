@@ -1,13 +1,12 @@
 package kg.erkin.springbackend.service.impl;
 
-import kg.erkin.springbackend.mapper.TransferDtoToEntity.RefreshTokenDtoToRefreshTokenTransfer;
-import kg.erkin.springbackend.mapper.TransferEntityToDto.RefreshTokenToRefreshTokenDtoTransfer;
+import kg.erkin.springbackend.mapper.transferDtoToEntity.RefreshTokenDtoToRefreshTokenTransfer;
+import kg.erkin.springbackend.mapper.transferEntityToDto.RefreshTokenToRefreshTokenDtoTransfer;
 import kg.erkin.springbackend.model.dto.RefreshTokenDto;
 import kg.erkin.springbackend.model.entity.RefreshToken;
 import kg.erkin.springbackend.repostitory.RefreshTokenRepository;
 import kg.erkin.springbackend.service.RefreshTokenService;
 import kg.erkin.springbackend.service.base.AbstractService;
-import kg.erkin.springbackend.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -22,12 +21,12 @@ public class RefreshTokenServiceImpl extends AbstractService<RefreshToken, Refre
     }
 
     @Override
-    public RefreshToken generateRefreshToken() {
-        RefreshToken refreshToken = new RefreshToken();
+    public RefreshTokenDto generateRefreshToken() {
+        RefreshTokenDto refreshToken = new RefreshTokenDto();
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setCreatedDate(Instant.now());
 
-        return repository.save(refreshToken);
+        return save(refreshToken);
     }
 
     @Override
