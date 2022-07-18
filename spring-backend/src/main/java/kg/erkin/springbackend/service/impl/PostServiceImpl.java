@@ -12,26 +12,23 @@ import kg.erkin.springbackend.model.dto.UserDto;
 import kg.erkin.springbackend.model.dto.api.PostRequest;
 import kg.erkin.springbackend.model.dto.api.PostResponse;
 import kg.erkin.springbackend.model.entity.Post;
-import kg.erkin.springbackend.model.entity.Subreddit;
-import kg.erkin.springbackend.model.entity.User;
-import kg.erkin.springbackend.repostitory.PostRepository;
+import kg.erkin.springbackend.service.PostEntityService;
 import kg.erkin.springbackend.service.PostService;
 import kg.erkin.springbackend.service.SubredditService;
 import kg.erkin.springbackend.service.UserService;
 import kg.erkin.springbackend.service.base.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostServiceImpl extends AbstractService<Post, PostDto, PostRepository,
+public class PostServiceImpl extends AbstractService<PostEntityService, Post, PostDto,
         PostToPostDtoTransfer, PostDtoToPostTransfer>
         implements PostService {
-    public PostServiceImpl(PostRepository repository, PostToPostDtoTransfer transferEntityToDto, PostDtoToPostTransfer transferDtoToEntity) {
-        super(repository, transferEntityToDto, transferDtoToEntity);
+    public PostServiceImpl(PostEntityService entityService, PostToPostDtoTransfer transferToDto, PostDtoToPostTransfer transferToEntity) {
+        super(entityService, transferToDto, transferToEntity);
     }
 
     @Autowired
@@ -47,23 +44,11 @@ public class PostServiceImpl extends AbstractService<Post, PostDto, PostReposito
     @Autowired
     private PostRequestToPostDtoTransfer postRequestToPostDtoTransfer;
 
-    @Transactional(readOnly = true)
-    public List<PostDto> getAllPostsBySubreddit(SubredditDto subredditDto) {
-        Subreddit subreddit = subredditDtoToSubredditTransfer.transferToEntity(subredditDto);
-        List<Post> postList = repository.findAllBySubreddit(subreddit);
-        return transferEntityToDto.transferToDtoList(postList);
-    }
-
-    @Transactional(readOnly = true)
-    public List<PostDto> getAllPostsByUser(UserDto userDto) {
-        User user = userDtoToUserTransfer.transferToEntity(userDto);
-        List<Post> postList = repository.findAllByUser(user);
-        return transferEntityToDto.transferToDtoList(postList);
-    }
-
     public List<PostResponse> getPostResponsesBySubreddit(Long subredditId) {
         SubredditDto subredditDto = subredditService.getById(subredditId);
-        List<PostDto> postDtoList = getAllPostsBySubreddit(subredditDto);
+        List<Post> postList = entityService
+                .getAllPostsBySubreddit(subredditDtoToSubredditTransfer.transferToEntity(subredditDto));
+        List<PostDto> postDtoList = transferEntityToDto.transferToDtoList(postList);
         return postDtoList.stream()
                 .map(post -> postDtoToPostResponseTransfer.transferToResponse(post))
                 .collect(Collectors.toList());
@@ -71,14 +56,16 @@ public class PostServiceImpl extends AbstractService<Post, PostDto, PostReposito
 
     public List<PostResponse> getPostResponsesByUsername(String username) {
         UserDto user = userService.getByUsername(username);
-        List<PostDto> postDtoList = getAllPostsByUser(user);
+        List<Post> postList = entityService
+                .getAllPostsByUser(userDtoToUserTransfer.transferToEntity(user));
+        List<PostDto> postDtoList = transferEntityToDto.transferToDtoList(postList);
         return postDtoList.stream()
                 .map(post -> postDtoToPostResponseTransfer.transferToResponse(post))
                 .collect(Collectors.toList());
 
     }
 
-    public PostDto saveRequest(PostRequest postRequest){
+    public PostDto save(PostRequest postRequest){
         PostDto postDto = postRequestToPostDtoTransfer.transferToDto(postRequest);
         return save(postDto);
     }
