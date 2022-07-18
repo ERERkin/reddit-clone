@@ -5,7 +5,9 @@ import kg.erkin.springbackend.mapper.transferEntityToDto.RefreshTokenToRefreshTo
 import kg.erkin.springbackend.model.dto.RefreshTokenDto;
 import kg.erkin.springbackend.model.entity.RefreshToken;
 import kg.erkin.springbackend.repostitory.RefreshTokenRepository;
+import kg.erkin.springbackend.service.RefreshTokenEntityService;
 import kg.erkin.springbackend.service.RefreshTokenService;
+import kg.erkin.springbackend.service.base.AbstractEntityService;
 import kg.erkin.springbackend.service.base.AbstractService;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,11 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Service
-public class RefreshTokenServiceImpl extends AbstractService<RefreshToken, RefreshTokenDto, RefreshTokenRepository,
+public class RefreshTokenServiceImpl extends AbstractService<RefreshTokenEntityService, RefreshToken, RefreshTokenDto,
         RefreshTokenToRefreshTokenDtoTransfer, RefreshTokenDtoToRefreshTokenTransfer>
         implements RefreshTokenService {
-    public RefreshTokenServiceImpl(RefreshTokenRepository repository, RefreshTokenToRefreshTokenDtoTransfer transferEntityToDto, RefreshTokenDtoToRefreshTokenTransfer transferDtoToEntity) {
-        super(repository, transferEntityToDto, transferDtoToEntity);
+    public RefreshTokenServiceImpl(RefreshTokenEntityService entityService, RefreshTokenToRefreshTokenDtoTransfer transferToDto, RefreshTokenDtoToRefreshTokenTransfer transferToEntity) {
+        super(entityService, transferToDto, transferToEntity);
     }
 
     @Override
@@ -31,12 +33,11 @@ public class RefreshTokenServiceImpl extends AbstractService<RefreshToken, Refre
 
     @Override
     public void validateRefreshToken(String token) {
-        repository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid refresh Token"));
+        entityService.validateRefreshToken(token);
     }
 
     @Override
     public void deleteRefreshToken(String token) {
-        repository.deleteByToken(token);
+        entityService.deleteRefreshToken(token);
     }
 }
