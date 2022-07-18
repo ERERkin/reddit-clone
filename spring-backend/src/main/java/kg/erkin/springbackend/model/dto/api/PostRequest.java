@@ -1,5 +1,6 @@
 package kg.erkin.springbackend.model.dto.api;
 
+import kg.erkin.springbackend.model.dto.api.base.BaseRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostRequest {
+public class PostRequest implements BaseRequest {
     private Long postId;
     private String subredditName;
     private String postName;
