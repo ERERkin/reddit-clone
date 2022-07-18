@@ -6,12 +6,9 @@ import kg.erkin.springbackend.mapper.transferDtoToEntity.UserDtoToUserTransfer;
 import kg.erkin.springbackend.mapper.transferEntityToDto.CommentToCommentDtoTransfer;
 import kg.erkin.springbackend.model.dto.CommentDto;
 import kg.erkin.springbackend.model.dto.PostDto;
-import kg.erkin.springbackend.model.dto.SubredditDto;
 import kg.erkin.springbackend.model.dto.UserDto;
 import kg.erkin.springbackend.model.entity.Comment;
-import kg.erkin.springbackend.model.entity.Post;
-import kg.erkin.springbackend.model.entity.Subreddit;
-import kg.erkin.springbackend.repostitory.CommentRepository;
+import kg.erkin.springbackend.service.CommentEntityService;
 import kg.erkin.springbackend.service.CommentService;
 import kg.erkin.springbackend.service.PostService;
 import kg.erkin.springbackend.service.UserService;
@@ -19,16 +16,13 @@ import kg.erkin.springbackend.service.base.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class CommentServiceImpl extends AbstractService<Comment, CommentDto, CommentRepository,
-        CommentToCommentDtoTransfer, CommentDtoToCommentTransfer>
+public class CommentServiceImpl extends AbstractService<CommentEntityService, Comment, CommentDto, CommentToCommentDtoTransfer, CommentDtoToCommentTransfer>
         implements CommentService {
-    public CommentServiceImpl(CommentRepository repository, CommentToCommentDtoTransfer transferEntityToDto, CommentDtoToCommentTransfer transferDtoToEntity) {
-        super(repository, transferEntityToDto, transferDtoToEntity);
+    public CommentServiceImpl(CommentEntityService entityService, CommentToCommentDtoTransfer transferEntityToDto, CommentDtoToCommentTransfer transferDtoToEntity) {
+        super(entityService, transferEntityToDto, transferDtoToEntity);
     }
 
     @Autowired
@@ -41,27 +35,18 @@ public class CommentServiceImpl extends AbstractService<Comment, CommentDto, Com
     private UserDtoToUserTransfer userDtoToUserTransfer;
 
     @Override
-    public List<CommentDto> getAllByPost(PostDto postDto) {
-        List<Comment> commentList = repository.findAllByPost(postDtoToPostTransfer.transferToEntity(postDto));
-        return transferEntityToDto.transferToDtoList(commentList);
-    }
-
-    @Override
     public List<CommentDto> getAllByPostId(Long postId) {
         PostDto postDto = postService.getById(postId);
-        return getAllByPost(postDto);
-    }
-
-    @Override
-    public List<CommentDto> getAllByUser(UserDto userDto) {
-        List<Comment> commentList = repository
-                .findAllByUser(userDtoToUserTransfer.transferToEntity(userDto));
+        List<Comment> commentList = entityService
+                .getAllByPost(postDtoToPostTransfer.transferToEntity(postDto));
         return transferEntityToDto.transferToDtoList(commentList);
     }
 
     @Override
     public List<CommentDto> getAllByUserUsername(String username) {
         UserDto userDto = userService.getByUsername(username);
-        return getAllByUser(userDto);
+        List<Comment> commentList = entityService
+                .getAllByUser(userDtoToUserTransfer.transferToEntity(userDto));
+        return transferEntityToDto.transferToDtoList(commentList);
     }
 }
