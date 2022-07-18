@@ -1,6 +1,6 @@
-package kg.erkin.springbackend.mapper.TransferDtoToEntity;
+package kg.erkin.springbackend.mapper.transferDtoToEntity;
 
-import kg.erkin.springbackend.mapper.TransferDtoToEntity.base.AbstractTransferDtoToEntity;
+import kg.erkin.springbackend.mapper.transferDtoToEntity.base.AbstractTransferDtoToEntity;
 import kg.erkin.springbackend.model.dto.SubredditDto;
 import kg.erkin.springbackend.model.entity.Subreddit;
 import lombok.Setter;

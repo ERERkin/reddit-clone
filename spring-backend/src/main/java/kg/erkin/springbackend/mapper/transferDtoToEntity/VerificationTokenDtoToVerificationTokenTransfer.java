@@ -1,6 +1,6 @@
-package kg.erkin.springbackend.mapper.TransferDtoToEntity;
+package kg.erkin.springbackend.mapper.transferDtoToEntity;
 
-import kg.erkin.springbackend.mapper.TransferDtoToEntity.base.AbstractTransferDtoToEntity;
+import kg.erkin.springbackend.mapper.transferDtoToEntity.base.AbstractTransferDtoToEntity;
 import kg.erkin.springbackend.model.dto.VerificationTokenDto;
 import kg.erkin.springbackend.model.entity.VerificationToken;
 import org.springframework.stereotype.Component;
