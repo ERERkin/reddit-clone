@@ -1,6 +1,6 @@
-package kg.erkin.springbackend.mapper.TransferEntityToDto;
+package kg.erkin.springbackend.mapper.transferEntityToDto;
 
-import kg.erkin.springbackend.mapper.TransferEntityToDto.base.AbstractTransferEntityToDto;
+import kg.erkin.springbackend.mapper.transferEntityToDto.base.AbstractTransferEntityToDto;
 import kg.erkin.springbackend.model.dto.UserDto;
 import kg.erkin.springbackend.model.entity.User;
 import org.springframework.stereotype.Component;

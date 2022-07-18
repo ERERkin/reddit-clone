@@ -1,6 +1,6 @@
-package kg.erkin.springbackend.mapper.TransferEntityToDto;
+package kg.erkin.springbackend.mapper.transferEntityToDto;
 
-import kg.erkin.springbackend.mapper.TransferEntityToDto.base.AbstractTransferEntityToDto;
+import kg.erkin.springbackend.mapper.transferEntityToDto.base.AbstractTransferEntityToDto;
 import kg.erkin.springbackend.model.dto.PostDto;
 import kg.erkin.springbackend.model.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;

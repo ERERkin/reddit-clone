@@ -1,4 +1,4 @@
-package kg.erkin.springbackend.mapper.TransferEntityToDto.base;
+package kg.erkin.springbackend.mapper.transferEntityToDto.base;
 
 import kg.erkin.springbackend.model.dto.base.BaseDto;
 import kg.erkin.springbackend.model.entity.base.BaseEntity;
