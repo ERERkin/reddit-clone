@@ -48,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
         this.refreshTokenService = refreshTokenService;
     }
 
+    @Override
     public void signup(RegisterRequest registerRequest) {
         UserDto user = new UserDto();
         user.setUsername(registerRequest.getUsername());

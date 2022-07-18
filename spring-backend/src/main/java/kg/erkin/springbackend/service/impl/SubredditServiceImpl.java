@@ -17,6 +17,7 @@ public class SubredditServiceImpl extends AbstractService<Subreddit, SubredditDt
         super(repository, transferEntityToDto, transferDtoToEntity);
     }
 
+    @Override
     public SubredditDto getByName(String name) {
         Subreddit subreddit = repository.findByName(name).orElse(null);
         return subreddit == null ? null : transferEntityToDto.transferToDto(subreddit);
