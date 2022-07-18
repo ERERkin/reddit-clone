@@ -5,9 +5,11 @@ import kg.erkin.springbackend.mapper.transferDtoToEntity.SubredditDtoToSubreddit
 import kg.erkin.springbackend.mapper.transferDtoToEntity.UserDtoToUserTransfer;
 import kg.erkin.springbackend.mapper.transferDtoToResponse.PostDtoToPostResponseTransfer;
 import kg.erkin.springbackend.mapper.transferEntityToDto.PostToPostDtoTransfer;
+import kg.erkin.springbackend.mapper.transferRequestToDto.PostRequestToPostDtoTransfer;
 import kg.erkin.springbackend.model.dto.PostDto;
 import kg.erkin.springbackend.model.dto.SubredditDto;
 import kg.erkin.springbackend.model.dto.UserDto;
+import kg.erkin.springbackend.model.dto.api.PostRequest;
 import kg.erkin.springbackend.model.dto.api.PostResponse;
 import kg.erkin.springbackend.model.entity.Post;
 import kg.erkin.springbackend.model.entity.Subreddit;
@@ -42,6 +44,8 @@ public class PostServiceImpl extends AbstractService<Post, PostDto, PostReposito
     private SubredditDtoToSubredditTransfer subredditDtoToSubredditTransfer;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostRequestToPostDtoTransfer postRequestToPostDtoTransfer;
 
     @Transactional(readOnly = true)
     public List<PostDto> getAllPostsBySubreddit(SubredditDto subredditDto) {
@@ -73,4 +77,16 @@ public class PostServiceImpl extends AbstractService<Post, PostDto, PostReposito
                 .collect(Collectors.toList());
 
     }
+
+    public PostDto saveRequest(PostRequest postRequest){
+        PostDto postDto = postRequestToPostDtoTransfer.transferToDto(postRequest);
+        return save(postDto);
+    }
+
+    @Override
+    public PostResponse getResponseById(Long id) {
+        PostDto postDto = getById(id);
+        return postDtoToPostResponseTransfer.transferToResponse(postDto);
+    }
+
 }
