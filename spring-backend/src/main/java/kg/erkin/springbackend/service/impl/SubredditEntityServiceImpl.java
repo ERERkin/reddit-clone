@@ -12,4 +12,9 @@ public class SubredditEntityServiceImpl extends AbstractEntityService<Subreddit,
     public SubredditEntityServiceImpl(SubredditRepository repository) {
         super(repository);
     }
+
+    @Override
+    public Subreddit getByName(String name) {
+        return repository.findByName(name).orElse(null);
+    }
 }

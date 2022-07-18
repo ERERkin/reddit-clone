@@ -3,9 +3,11 @@ package kg.erkin.springbackend.service.impl;
 import kg.erkin.springbackend.mapper.transferDtoToEntity.PostDtoToPostTransfer;
 import kg.erkin.springbackend.mapper.transferDtoToEntity.UserDtoToUserTransfer;
 import kg.erkin.springbackend.mapper.transferDtoToEntity.VoteDtoToVoteTransfer;
+import kg.erkin.springbackend.mapper.transferEntityToDto.PostToPostDtoTransfer;
 import kg.erkin.springbackend.mapper.transferEntityToDto.VoteToVoteDtoTransfer;
 import kg.erkin.springbackend.mapper.transferRequestToDto.VoteRequestToVoteDtoTransfer;
 import kg.erkin.springbackend.model.dto.PostDto;
+import kg.erkin.springbackend.model.dto.UserDto;
 import kg.erkin.springbackend.model.dto.VoteDto;
 import kg.erkin.springbackend.model.dto.api.VoteRequest;
 import kg.erkin.springbackend.model.entity.Post;
@@ -34,6 +36,8 @@ public class VoteServiceImpl extends AbstractService<VoteEntityService, Vote, Vo
 
     @Autowired
     private PostDtoToPostTransfer postDtoToPostTransfer;
+    @Autowired
+    private PostToPostDtoTransfer postToPostDtoTransfer;
     @Autowired
     private UserDtoToUserTransfer userDtoToUserTransfer;
     @Autowired
@@ -65,5 +69,13 @@ public class VoteServiceImpl extends AbstractService<VoteEntityService, Vote, Vo
 
         postService.save(postDto);
         save(voteRequestToVoteDtoTransfer.transferToDto(voteRequest));
+    }
+
+    @Override
+    public VoteDto getTopByPostAndUserOrderByVoteIdDesc(PostDto postDto, UserDto userDto) {
+        Post post = postDtoToPostTransfer.transferToEntity(postDto);
+        User user = userDtoToUserTransfer.transferToEntity(userDto);
+        Vote vote = entityService.getTopByPostAndUserOrderByVoteIdDesc(post, user);
+        return transferEntityToDto.transferToDto(vote);
     }
 }

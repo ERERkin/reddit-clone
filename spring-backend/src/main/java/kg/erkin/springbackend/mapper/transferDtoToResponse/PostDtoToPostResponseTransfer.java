@@ -8,7 +8,6 @@ import kg.erkin.springbackend.model.dto.api.PostResponse;
 import kg.erkin.springbackend.model.enums.VoteType;
 import kg.erkin.springbackend.service.AuthService;
 import kg.erkin.springbackend.service.CommentService;
-import kg.erkin.springbackend.service.PostService;
 import kg.erkin.springbackend.service.VoteService;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -31,15 +30,15 @@ public class PostDtoToPostResponseTransfer extends AbstractTransferDtoToResponse
                 .id(dto.getPostId())
                 .subredditName(dto.getSubreddit().getName())
                 .userName(dto.getUser().getUsername())
-                .commentCount(commentCount(dto))
+                .commentCount(commentCount(dto.getPostId()))
                 .duration(getDuration(dto))
                 .upVote(isPostUpVoted(dto))
                 .downVote(isPostDownVoted(dto))
                 .build();
     }
 
-    Integer commentCount(PostDto post) {
-        return commentService.getAllByPost(post).size();
+    Integer commentCount(Long postId) {
+        return commentService.getAllByPostId(postId).size();
     }
 
     String getDuration(PostDto post) {
