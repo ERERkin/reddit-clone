@@ -9,7 +9,6 @@ import kg.erkin.springbackend.model.enums.VoteType;
 import kg.erkin.springbackend.service.AuthService;
 import kg.erkin.springbackend.service.CommentService;
 import kg.erkin.springbackend.service.VoteService;
-import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +37,8 @@ public class PostDtoToPostResponseTransfer extends AbstractTransferDtoToResponse
                 .url(dto.getUrl())
                 .voteCount(dto.getVoteCount())
                 .description(dto.getDescription())
-                .subredditName(dto.getSubreddit().getName())
+                .subredditName(dto.getSubreddit() == null ? null :
+                        dto.getSubreddit().getName())
                 .userName(dto.getUser().getUsername())
                 .commentCount(commentCount(dto.getPostId()))
                 .duration(getDuration(dto))
