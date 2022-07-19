@@ -6,13 +6,18 @@ import kg.erkin.springbackend.model.dto.api.VoteRequest;
 import kg.erkin.springbackend.service.AuthService;
 import kg.erkin.springbackend.service.PostService;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
-@Setter
 public class VoteRequestToVoteDtoTransfer extends AbstractTransferRequestToDto<VoteDto, VoteRequest> {
-    private PostService postService;
-    private AuthService authService;
+    private final PostService postService;
+    private final AuthService authService;
+
+    public VoteRequestToVoteDtoTransfer(@Lazy PostService postService,@Lazy AuthService authService) {
+        this.postService = postService;
+        this.authService = authService;
+    }
 
     @Override
     public VoteDto transferToDto(VoteRequest request) {

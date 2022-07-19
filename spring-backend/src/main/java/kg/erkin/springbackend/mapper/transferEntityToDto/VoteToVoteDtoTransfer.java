@@ -4,13 +4,18 @@ import kg.erkin.springbackend.mapper.transferEntityToDto.base.AbstractTransferEn
 import kg.erkin.springbackend.model.dto.VoteDto;
 import kg.erkin.springbackend.model.entity.Vote;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
-@Setter
 public class VoteToVoteDtoTransfer extends AbstractTransferEntityToDto<Vote, VoteDto> {
-    private PostToPostDtoTransfer postToPostDtoTransfer;
-    private UserToUserDtoTransfer userToUserDtoTransfer;
+    private final PostToPostDtoTransfer postToPostDtoTransfer;
+    private final UserToUserDtoTransfer userToUserDtoTransfer;
+
+    public VoteToVoteDtoTransfer(@Lazy PostToPostDtoTransfer postToPostDtoTransfer,@Lazy UserToUserDtoTransfer userToUserDtoTransfer) {
+        this.postToPostDtoTransfer = postToPostDtoTransfer;
+        this.userToUserDtoTransfer = userToUserDtoTransfer;
+    }
 
     @Override
     public VoteDto transferToDto(Vote entity) {
