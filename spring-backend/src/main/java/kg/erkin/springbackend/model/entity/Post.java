@@ -48,7 +48,7 @@ public class Post implements BaseEntity {
     @Column(name = "created_date")
     private Instant createdDate;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = Subreddit.class, fetch = LAZY)
+    @JoinColumn(name = "subreddit_id", referencedColumnName = "id")
     private Subreddit subreddit;
 }

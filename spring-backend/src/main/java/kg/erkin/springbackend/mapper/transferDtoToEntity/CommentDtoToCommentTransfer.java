@@ -4,13 +4,18 @@ import kg.erkin.springbackend.mapper.transferDtoToEntity.base.AbstractTransferDt
 import kg.erkin.springbackend.model.dto.CommentDto;
 import kg.erkin.springbackend.model.entity.Comment;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
-@Setter
 public class CommentDtoToCommentTransfer extends AbstractTransferDtoToEntity<Comment, CommentDto> {
-    private PostDtoToPostTransfer postDtoToPostTransfer;
-    private UserDtoToUserTransfer userDtoToUserTransfer;
+    private final PostDtoToPostTransfer postDtoToPostTransfer;
+    private final UserDtoToUserTransfer userDtoToUserTransfer;
+
+    public CommentDtoToCommentTransfer(@Lazy PostDtoToPostTransfer postDtoToPostTransfer,@Lazy UserDtoToUserTransfer userDtoToUserTransfer) {
+        this.postDtoToPostTransfer = postDtoToPostTransfer;
+        this.userDtoToUserTransfer = userDtoToUserTransfer;
+    }
 
     @Override
     public Comment transferToEntity(CommentDto dto) {
