@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 public class RefreshTokenToRefreshTokenDtoTransfer extends AbstractTransferEntityToDto<RefreshToken, RefreshTokenDto> {
     @Override
     public RefreshTokenDto transferToDto(RefreshToken entity) {
-        return null;
+        return entity == null ? null : RefreshTokenDto.builder()
+                .id(entity.getId())
+                .token(entity.getToken())
+                .createdDate(entity.getCreatedDate())
+                .build();
     }
 }

@@ -14,7 +14,7 @@ public class CommentToCommentDtoTransfer extends AbstractTransferEntityToDto<Com
 
     @Override
     public CommentDto transferToDto(Comment entity) {
-        return CommentDto.builder()
+        return entity == null ? null : CommentDto.builder()
                 .id(entity.getId())
                 .text(entity.getText())
                 .createdDate(entity.getCreatedDate())

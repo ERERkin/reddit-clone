@@ -3,15 +3,15 @@ package kg.erkin.springbackend.mapper.transferEntityToDto;
 import kg.erkin.springbackend.mapper.transferEntityToDto.base.AbstractTransferEntityToDto;
 import kg.erkin.springbackend.model.dto.PostDto;
 import kg.erkin.springbackend.model.entity.Post;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Setter
 public class PostToPostDtoTransfer extends AbstractTransferEntityToDto<Post, PostDto> {
-    @Autowired
-    UserToUserDtoTransfer userToUserDtoTransfer;
-    @Autowired
-    SubredditToSubredditDtoTransfer subredditToSubredditDtoTransfer;
+    private UserToUserDtoTransfer userToUserDtoTransfer;
+    private SubredditToSubredditDtoTransfer subredditToSubredditDtoTransfer;
 
     @Override
     public PostDto transferToDto(Post entity) {
