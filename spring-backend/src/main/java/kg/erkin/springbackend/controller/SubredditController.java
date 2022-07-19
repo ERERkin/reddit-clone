@@ -1,6 +1,7 @@
 package kg.erkin.springbackend.controller;
 
 import kg.erkin.springbackend.model.dto.SubredditDto;
+import kg.erkin.springbackend.model.dto.api.SubredditRequest;
 import kg.erkin.springbackend.service.SubredditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,9 @@ public class SubredditController {
     private SubredditService subredditService;
 
     @PostMapping
-    public ResponseEntity<?> createSubreddit(@RequestBody SubredditDto subredditDto) {
+    public ResponseEntity<?> createSubreddit(@RequestBody SubredditRequest subredditRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(subredditService.save(subredditDto));
+                .body(subredditService.save(subredditRequest));
     }
 
     @GetMapping
