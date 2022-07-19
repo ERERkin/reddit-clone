@@ -13,7 +13,10 @@ import java.util.List;
 @Component
 @Setter
 public class SubredditToSubredditDtoTransfer extends AbstractTransferEntityToDto<Subreddit, SubredditDto> {
+    @Autowired
     private UserToUserDtoTransfer userToUserDtoTransfer;
+    @Autowired
+    private PostToPostDtoTransfer postToPostDtoTransfer;
 
     @Override
     public SubredditDto transferToDto(Subreddit entity) {
@@ -21,13 +24,9 @@ public class SubredditToSubredditDtoTransfer extends AbstractTransferEntityToDto
                 .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
-//                .posts()
+                .posts(postToPostDtoTransfer.transferToDtoList(entity.getPosts()))
                 .createdDate(entity.getCreatedDate())
                 .user(userToUserDtoTransfer.transferToDto(entity.getUser()))
                 .build();
-    }
-
-    private Integer mapPosts(List<Post> numberOfPosts) {
-        return numberOfPosts.size();
     }
 }

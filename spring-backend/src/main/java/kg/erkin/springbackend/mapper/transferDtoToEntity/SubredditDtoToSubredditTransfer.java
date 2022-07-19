@@ -3,13 +3,16 @@ package kg.erkin.springbackend.mapper.transferDtoToEntity;
 import kg.erkin.springbackend.mapper.transferDtoToEntity.base.AbstractTransferDtoToEntity;
 import kg.erkin.springbackend.model.dto.SubredditDto;
 import kg.erkin.springbackend.model.entity.Subreddit;
+import kg.erkin.springbackend.service.AuthService;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Setter
 public class SubredditDtoToSubredditTransfer extends AbstractTransferDtoToEntity<Subreddit, SubredditDto> {
+    @Autowired
     private UserDtoToUserTransfer userDtoToUserTransfer;
+    @Autowired
     private PostDtoToPostTransfer postDtoToPostTransfer;
 
     @Override
