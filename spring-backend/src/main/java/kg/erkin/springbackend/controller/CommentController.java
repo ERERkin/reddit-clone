@@ -1,6 +1,7 @@
 package kg.erkin.springbackend.controller;
 
 import kg.erkin.springbackend.model.dto.CommentDto;
+import kg.erkin.springbackend.model.dto.api.CommentRequest;
 import kg.erkin.springbackend.service.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,20 +19,20 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createComment(@RequestBody CommentDto commentsto) {
-        commentService.save(commentsto);
+    public ResponseEntity<?> createComment(@RequestBody CommentRequest commentRequest) {
+        commentService.save(commentRequest);
         return new ResponseEntity<>(CREATED);
     }
 
     @GetMapping("/by-post/{postId}")
     public ResponseEntity<?> getAllCommentsForPost(@PathVariable Long postId) {
         return ResponseEntity.status(OK)
-                .body(commentService.getAllByPostId(postId));
+                .body(commentService.getResponseListByPostId(postId));
     }
 
     @GetMapping("/by-user/{userName}")
     public ResponseEntity<?> getAllCommentsForUser(@PathVariable String userName){
         return ResponseEntity.status(OK)
-                .body(commentService.getAllByUserUsername(userName));
+                .body(commentService.getResponseListByUserUsername(userName));
     }
 }
