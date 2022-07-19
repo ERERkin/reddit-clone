@@ -24,7 +24,7 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<?> getAllPosts() {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getResponseList());
     }
 
     @GetMapping("/{id}")
@@ -33,7 +33,7 @@ public class PostController {
     }
 
     @GetMapping("by-subreddit/{id}")
-    public ResponseEntity<?> getPostsBySubreddit(Long id) {
+    public ResponseEntity<?> getPostsBySubreddit(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPostResponsesBySubreddit(id));
     }
 

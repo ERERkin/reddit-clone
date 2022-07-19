@@ -12,9 +12,10 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 
 @Component
-@Setter
 public class PostRequestToPostDtoTransfer extends AbstractTransferRequestToDto<PostDto, PostRequest> {
+    @Autowired
     private SubredditService subredditService;
+    @Autowired
     private AuthService authService;
 
     @Override

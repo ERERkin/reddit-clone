@@ -10,10 +10,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SubredditDtoToSubredditTransfer extends AbstractTransferDtoToEntity<Subreddit, SubredditDto> {
-    @Autowired
-    private UserDtoToUserTransfer userDtoToUserTransfer;
-    @Autowired
-    private PostDtoToPostTransfer postDtoToPostTransfer;
+    private final UserDtoToUserTransfer userDtoToUserTransfer;
+    private final PostDtoToPostTransfer postDtoToPostTransfer;
+
+    public SubredditDtoToSubredditTransfer() {
+        userDtoToUserTransfer = new UserDtoToUserTransfer();
+        postDtoToPostTransfer = new PostDtoToPostTransfer(this);
+    }
 
     @Override
     public Subreddit transferToEntity(SubredditDto dto) {

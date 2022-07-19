@@ -8,10 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Setter
 public class PostToPostDtoTransfer extends AbstractTransferEntityToDto<Post, PostDto> {
-    private UserToUserDtoTransfer userToUserDtoTransfer;
-    private SubredditToSubredditDtoTransfer subredditToSubredditDtoTransfer;
+    private final UserToUserDtoTransfer userToUserDtoTransfer;
+    private final SubredditToSubredditDtoTransfer subredditToSubredditDtoTransfer;
+
+    public PostToPostDtoTransfer() {
+        userToUserDtoTransfer = new UserToUserDtoTransfer();
+        subredditToSubredditDtoTransfer = new SubredditToSubredditDtoTransfer();
+    }
+
+    public PostToPostDtoTransfer(SubredditToSubredditDtoTransfer subredditToSubredditDtoTransfer) {
+        userToUserDtoTransfer = new UserToUserDtoTransfer();
+        this.subredditToSubredditDtoTransfer = subredditToSubredditDtoTransfer;
+    }
 
     @Override
     public PostDto transferToDto(Post entity) {

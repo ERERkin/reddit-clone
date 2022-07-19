@@ -76,4 +76,8 @@ public class PostServiceImpl extends AbstractService<PostEntityService, Post, Po
         return postDtoToPostResponseTransfer.transferToResponse(postDto);
     }
 
+    @Override
+    public List<PostResponse> getResponseList() {
+        return postDtoToPostResponseTransfer.transferToResponseList(getAll());
+    }
 }

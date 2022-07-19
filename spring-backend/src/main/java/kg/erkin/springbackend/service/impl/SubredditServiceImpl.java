@@ -14,6 +14,8 @@ import kg.erkin.springbackend.service.base.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubredditServiceImpl extends AbstractService<SubredditEntityService, Subreddit, SubredditDto,
         SubredditToSubredditDtoTransfer, SubredditDtoToSubredditTransfer>
@@ -38,5 +40,15 @@ public class SubredditServiceImpl extends AbstractService<SubredditEntityService
         SubredditDto subredditDto = subredditRequestToSubredditDtoTransfer.transferToDto(subredditRequest);
         subredditDto = save(subredditDto);
         return subredditDtoToSubredditResponseTransfer.transferToResponse(subredditDto);
+    }
+
+    @Override
+    public List<SubredditResponse> getResponseList() {
+        return subredditDtoToSubredditResponseTransfer.transferToResponseList(getAll());
+    }
+
+    @Override
+    public SubredditResponse getResponseById(Long id) {
+        return subredditDtoToSubredditResponseTransfer.transferToResponse(getById(id));
     }
 }

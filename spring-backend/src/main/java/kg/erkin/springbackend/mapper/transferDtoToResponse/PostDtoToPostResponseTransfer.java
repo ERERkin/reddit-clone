@@ -10,6 +10,7 @@ import kg.erkin.springbackend.service.AuthService;
 import kg.erkin.springbackend.service.CommentService;
 import kg.erkin.springbackend.service.VoteService;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -18,16 +19,25 @@ import static kg.erkin.springbackend.model.enums.VoteType.DOWNVOTE;
 import static kg.erkin.springbackend.model.enums.VoteType.UPVOTE;
 
 @Component
-@Setter
 public class PostDtoToPostResponseTransfer extends AbstractTransferDtoToResponse<PostDto, PostResponse> {
-    private CommentService commentService;
-    private AuthService authService;
-    private VoteService voteService;
+    private final CommentService commentService;
+    private final AuthService authService;
+    private final VoteService voteService;
+
+    public PostDtoToPostResponseTransfer(@Lazy CommentService commentService,@Lazy AuthService authService,@Lazy VoteService voteService) {
+        this.commentService = commentService;
+        this.authService = authService;
+        this.voteService = voteService;
+    }
 
     @Override
     public PostResponse transferToResponse(PostDto dto) {
         return PostResponse.builder()
                 .id(dto.getPostId())
+                .postName(dto.getPostName())
+                .url(dto.getUrl())
+                .voteCount(dto.getVoteCount())
+                .description(dto.getDescription())
                 .subredditName(dto.getSubreddit().getName())
                 .userName(dto.getUser().getUsername())
                 .commentCount(commentCount(dto.getPostId()))
