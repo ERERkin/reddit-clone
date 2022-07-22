@@ -12,12 +12,12 @@ import {PostService} from "../post.service";
 })
 export class PostTileComponent implements OnInit {
 
-  posts$: Array<PostModel> | undefined;
+  @Input() posts: Array<PostModel> | undefined;
   faComments = faComments;
 
   constructor(private postService: PostService, private router: Router) {
     this.postService.getAllPosts().subscribe(post => {
-      this.posts$ = post;
+      this.posts = post;
     });
   }
 
