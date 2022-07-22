@@ -15,7 +15,7 @@ import {CommentService} from "../../comment/comment.service";
 export class ViewPostComponent implements OnInit {
 
   postId: number;
-  post: PostModel | undefined;
+  post: PostModel;
   commentForm: FormGroup;
   commentPayload: CommentPayload;
   comments: CommentPayload[] | undefined;
@@ -23,6 +23,10 @@ export class ViewPostComponent implements OnInit {
   constructor(private postService: PostService, private activateRoute: ActivatedRoute,
               private commentService: CommentService, private router: Router) {
     this.postId = this.activateRoute.snapshot.params['id'];
+
+    // @ts-ignore
+    this.post = {}
+
 
     this.commentForm = new FormGroup({
       text: new FormControl('', Validators.required)
