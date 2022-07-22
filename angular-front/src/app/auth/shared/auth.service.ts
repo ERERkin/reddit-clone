@@ -72,4 +72,14 @@ export class AuthService {
     this.localStorage.clear('expiresAt');
   }
 
+  getUserName() {
+    return this.localStorage.retrieve('username');
+  }
+  getRefreshToken() {
+    return this.localStorage.retrieve('refreshToken');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getJwtToken() != null;
+  }
 }
